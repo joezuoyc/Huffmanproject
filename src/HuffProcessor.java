@@ -10,6 +10,7 @@
  * @author Qiaoyi Fang
  * @author Joe Zuo
  */
+import java.util.*;
 
 public class HuffProcessor {
 
@@ -130,6 +131,8 @@ public class HuffProcessor {
 	
 	public int[] readForCounts(BitInputStream in) {
 		int freq[ALPH_SIZE+1];
+		
+		for(int i = 0;i<ALPH_SIZE+1;i++) freq[i] = 0;
 		
 		while (true){
 			int val = in.readBits(BITS_PER_WORD);
