@@ -124,7 +124,7 @@ public class HuffProcessor {
 		out.writeBits(BITS_PER_INT, HUFF_TREE);
 		writeHeader(root, out);
 		
-		in.rest();
+		in.reset();
 		writeCompressedBit(codings, in, out);
 		out.close();
 	}
