@@ -33,24 +33,7 @@ public class HuffProcessor {
 		myDebugLevel = debug;
 	}
 
-	/**
-	 * Compresses a file. Process must be reversible and loss-less.
-	 *
-	 * @param in
-	 *            Buffered bit stream of the file to be compressed.
-	 * @param out
-	 *            Buffered bit stream writing to the output file.
-	 */
-	public void compress(BitInputStream in, BitOutputStream out){
-
-		while (true){
-			int val = in.readBits(BITS_PER_WORD);
-			if (val == -1) break;
-			out.writeBits(BITS_PER_WORD, val);
-		}
-		out.close();
-	}
-	/**
+		/**
 	 * Decompresses a file. Output file must be identical bit-by-bit to the
 	 * original.
 	 *
@@ -124,6 +107,14 @@ public class HuffProcessor {
 		
 	}
 	
+	/**
+	 * Compresses a file. Process must be reversible and loss-less.
+	 *
+	 * @param in
+	 *            Buffered bit stream of the file to be compressed.
+	 * @param out
+	 *            Buffered bit stream writing to the output file.
+	 */
 	public void compress(BitInputStream in, BitOutputStream out) {
 		int[] conuts = readForCounts(in);
 		HuffNode root = makeTreeFromCounts(counts);
