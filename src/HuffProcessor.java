@@ -204,10 +204,10 @@ public class HuffProcessor {
 	
 	private void writeCompressedBit(String[] encodings, BitInputStream in, BitOutputStream out)
 	{
-		in.reset();
+		//in.reset();
 		while (true) {
 			int val = in.readBits(BITS_PER_WORD);
-			if(val == PSEUDO_EOF) break;
+			if(val == -1) break;
 			String code = encodings[val];
 			out.writeBits(code.length(), Integer.parseInt(code, 2));
 
