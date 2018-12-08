@@ -163,12 +163,13 @@ public class HuffProcessor {
 		}
 		
 		HuffNode root = pq.remove();
+		return root;
 	}
 	
-	private void codingHelper(HuffNode root, String path, String[] encodings) {
-		if (root.myValue != 0 && root.myLeft==null&&root.myRight==null)
+	public void codingHelper(HuffNode root, String path, String[] encodings) {
+		if(root == null) return;
+		if (root.myValue != 0 && root.myLeft==null&&root.myRight==null) {
 			encodings[root.myValue] = path;
-			return;
 		}
 		else {
 			if (root.myLeft != null) {
@@ -183,7 +184,8 @@ public class HuffProcessor {
 	
 	public String[] makeCodingsFromTree(HuffNode root) {
 		String[] encodings = new String[ALPH_SIZE + 1];
-		codingHelper(root, "", encodings);
+		String temp = "";
+		codingHelper(root, temp, encodings);
 		return encodings; //not sure whether encodings is global invariable and can be updated in codingHelper
 	}
 	
@@ -218,4 +220,5 @@ public class HuffProcessor {
 		}
 		return;
 	}
+	
 }
