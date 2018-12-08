@@ -117,7 +117,7 @@ public class HuffProcessor {
 	 *            Buffered bit stream writing to the output file.
 	 */
 	public void compress(BitInputStream in, BitOutputStream out) {
-		int[] conuts = readForCounts(in);
+		int[] counts = readForCounts(in);
 		HuffNode root = makeTreeFromCounts(counts);
 		String[] codings = makeCodingsFromTree(root);
 		
@@ -130,7 +130,7 @@ public class HuffProcessor {
 	}
 	
 	public int[] readForCounts(BitInputStream in) {
-		int freq[ALPH_SIZE+1];
+		int[] freq = new int[ALPH_SIZE+1];
 		
 		for(int i = 0;i<ALPH_SIZE+1;i++) freq[i] = 0;
 		
