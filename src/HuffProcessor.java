@@ -190,21 +190,15 @@ public class HuffProcessor {
 	}
 	
 	public void writeHeader(HuffNode root, BitOutputStream out) {
-		if (root.myValue != 0 && root.myLeft==null && root.myRight==null) { //or root.myLeft==null&&root.myRight==null
+		if (root.myLeft==null && root.myRight==null) { //or root.myValue != 0
 			out.writeBits(1, 1);
 			out.writeBits(BITS_PER_WORD+1, root.myValue);	
 		}
 		else {
 			out.writeBits(1, 0);
-		}
-		
-		if (root.myLeft!=null) {
 			writeHeader(root.myLeft, out);
-		}
-		if (root.myRight!=null) {
 			writeHeader(root.myRight, out);
-		}
-		
+		}	
 		return;
 	}
 	
@@ -213,11 +207,14 @@ public class HuffProcessor {
 		in.reset();
 		while (true) {
 			int val = in.readBits(BITS_PER_WORD);
+			if(val == -1) break;
 			String code = encodings[val];
 			out.writeBits(code.length(), Integer.parseInt(code, 2));
 			if (val == PSEUDO_EOF)
 				break;
 		}
+		String code = encodings[PSEUDO_EOF];
+		out.writeBits(code.length(), Integer.parseInt(code,2));
 		return;
 	}
 	
